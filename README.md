@@ -7,6 +7,8 @@ Esto es similar a ngrok.
 Seria como para bypassear un puerto.
 
 
+
+
 ## Configuration
 
     kubectl run -i --tty --image vivaldi4seasons/falco-runtime-intro:0.0.1 ubuntu
@@ -24,4 +26,5 @@ En lugar de incluir la llave en la imagen, móntala como un volumen cuando inici
 
 ### Opportunities
 
-
+# Establecer el nombre del host
+ENV HOSTNAME=falco-runtime-intro

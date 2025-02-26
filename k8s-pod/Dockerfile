@@ -36,6 +36,9 @@ RUN echo "root:toor" | sudo chpasswd
 RUN usermod -aG sudo vivaldi && echo "vivaldi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vivaldi
 RUN chmod 0440 /etc/sudoers.d/vivaldi  # Corrección de permisos
 
+# Establecer el nombre del host
+ENV HOSTNAME=falco-runtime-intro
+
 # Cambiar al usuario "vivaldi" y definir directorio de trabajo
 USER vivaldi
 WORKDIR /home/vivaldi
