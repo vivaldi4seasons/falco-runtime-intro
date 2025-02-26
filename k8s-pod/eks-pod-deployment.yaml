@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: falco-runtime-intro-deployment
+  labels:
+    app: falco-runtime-intro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: falco-runtime-intro
+  template:
+    metadata:
+      labels:
+        app: falco-runtime-intro
+    spec:
+      containers:
+      - name: falco-runtime-intro
+        image: vivaldi4seasons/falco-runtime-intro:0.0.1
+        imagePullPolicy: Always
+        command: [ "tail", "-f", "/dev/null" ]
