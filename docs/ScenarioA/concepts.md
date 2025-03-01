@@ -1,5 +1,7 @@
 # Concepts
 
+> La diferencia entre SSH Port Forwarding y SSH Tunneling es más una cuestión de terminología que de funcionalidad, ya que SSH Port Forwarding es un tipo específico de SSH Tunneling. Sin embargo, en la práctica, estos términos a veces se usan indistintamente.
+
 
 ## SSH Port forwarding (Tunelización de puertos)
 
@@ -19,13 +21,13 @@ El SSH Tunneling pertenece al marco MITRE ATT&CK dentro de la táctica TA0011 - 
 T1090.002 - Connection Proxy: SSH → Uso de SSH como proxy para ocultar la ubicación real del atacante.
 T1572 - Protocol Tunneling → SSH se usa para encapsular otros protocolos y evadir restricciones de red.
 
-Hay 3 tipos.
 
 
-- Local port forwarding -L
-- Remote port forwarding -R
-- Dynamic port forwarding -D
-- Pivoting
+| Tipo     | Opción | Flujo de tráfico                 | Uso principal                                              |
+|----------|--------|---------------------------------|-----------------------------------------------------------|
+| **Local**  | `-L`  | Local → SSH → Destino remoto   | Acceder a servicios remotos desde tu máquina             |
+| **Remoto** | `-R`  | Remoto → SSH → Tu máquina      | Hacer que servicios locales sean accesibles desde una máquina remota |
+| **Dinámico** | `-D`  | Proxy SOCKS5 (Cualquier destino) | Proxy seguro para navegación o túneles VPN-like          |
 
 
 
