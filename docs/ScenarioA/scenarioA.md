@@ -15,8 +15,13 @@ Remote Port Forwarding
 
     ssh -i gcp_remote -R 3306:localhost:3306 diegoposada@34.27.180.215
 
+Dynamic Port Forwarding
+
     ssh -D 8080 user@server  (SSH Tunneling encapsula todo el tráfico TCP a través de una conexión segura SSH, actuando como una especie de VPN básica.)
 
+
+
+    ssh -w 0:0 usuario@servidor
 
 | Comando                                                                 | Tipo                   | Descripción                                                                                  |
 |-------------------------------------------------------------------------|------------------------|----------------------------------------------------------------------------------------------|
