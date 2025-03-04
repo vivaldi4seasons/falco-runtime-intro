@@ -30,6 +30,10 @@ T1572 - Protocol Tunneling → SSH se usa para encapsular otros protocolos y eva
 | **Dinámico** | `-D`  | Proxy SOCKS5 (Cualquier destino) | Proxy seguro para navegación o túneles VPN-like          |
 
 
+##
+
+
+sshuttle es una herramienta que permite tunelizar tráfico de red a través de una conexión SSH, similar a un VPN pero sin necesidad de configurar un servidor VPN. Es útil para acceder a redes privadas de forma segura sin exponer servicios al exterior.
 
 
 ### Summary

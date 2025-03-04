@@ -1,9 +1,12 @@
 # Scenario B: (Memory Dump)
 
 
-![Memory dumping](../../assets/memoryDumping.webp)
 
+<!-- <img src="../../assets/memoryDumping.webp" align="center" width="50%" height="50%"/> -->
 
+<div style="text-align: center;">
+  <img src="../../assets/memoryDumping.webp" width="50%" height="50%" />
+</div>
 
 Trin
 

@@ -1,6 +1,6 @@
 # Concepts
 
-> 
+> Memory dump in kubernetes
 
 
 
