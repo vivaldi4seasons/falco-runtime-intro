@@ -48,3 +48,34 @@ Se puede observar que se levanta la regla en Falco.
 
     {"hostname":"falcox33-falco-obsec-s6nzm","output":"01:30:39.455536915: Warning ssh tunneling (user=<NA> user_loginuid=-1 program=ssh command=ssh -L 60080:127.0.0.1:60080 -N ots-yODc2NGQ@10.10.10.133 ots-yODc2NGQ@10.10.10.133 pid=3598 file=<NA> parent=bash gparent=containerd-shim ggparent=systemd gggparent=<NA> container_id=b83b3f40cab2 image=sha256) k8s.ns=falco-custom-lab k8s.pod=sneaky container=b83b3f40cab2","priority":"Warning","rule":"ssh tunneling/ssh port forwarding","source":"syscall","tags":["T1572","container","host","mitre_command_and_control","network"],"time":"2025-02-22T01:30:39.455536915Z", "output_fields": {"container.id":"b83b3f40cab2","container.image.repository":"sha256","evt.time":1740187839455536915,"fd.name":null,"k8s.ns.name":"falco-custom-lab","k8s.pod.name":"sneaky","proc.aname[2]":"containerd-shim","proc.aname[3]":"systemd","proc.aname[4]":null,"proc.cmdline":"ssh -L 60080:127.0.0.1:60080 -N ots-yODc2NGQ@10.10.10.133 ots-yODc2NGQ@10.10.10.133","proc.name":"ssh","proc.pid":3598,"proc.pname":"bash","user.loginuid":-1,"user.name":"<NA>"}}
 
+
+
+Se puede corroborar la conexión desde el pod a través del tunnel local hacia la base de datos. Esta dirección IP pertenece a la red de Docker
+
+      mysql> SHOW PROCESSLIST;
+      +----+-----------------+------------------+------+---------+---------+------------------------+------------------+
+      | Id | User            | Host             | db   | Command | Time    | State                  | Info             |
+      +----+-----------------+------------------+------+---------+---------+------------------------+------------------+
+      |  5 | event_scheduler | localhost        | NULL | Daemon  | 1614663 | Waiting on empty queue | NULL             |
+      | 29 | root            | localhost        | NULL | Query   |       0 | init                   | SHOW PROCESSLIST |
+      | 32 | root            | 172.18.0.1:60616 | test | Sleep   |       3 |                        | NULL             |
+      +----+-----------------+------------------+------+---------+---------+------------------------+------------------+
+
+
+
+En efecto el direccionamiento corresponde a 
+
+root@draios:/home/diegoposada# docker network ls
+NETWORK ID     NAME                DRIVER    SCOPE
+4b4eb1ddee9e   bridge              bridge    local
+9c75882f79cc   db-server_default   bridge    local
+d90c1546bdb2   host                host      local
+859b691afc51   none                null      local
+
+
+
+root@draios:/home/diegoposada# docker inspect db-server_default | grep -i subnet
+                    "Subnet": "172.18.0.0/16",
+
+
+
