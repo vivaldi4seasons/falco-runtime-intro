@@ -1,4 +1,4 @@
-# Concepts
+# Conceptos
 
 > La diferencia entre SSH Port Forwarding y SSH Tunneling es más una cuestión de terminología que de funcionalidad, ya que SSH Port Forwarding es un tipo específico de SSH Tunneling. Sin embargo, en la práctica, estos términos a veces se usan indistintamente.
 

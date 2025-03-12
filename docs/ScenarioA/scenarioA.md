@@ -1,6 +1,6 @@
 # Scenario A: Exfiltración de Información mediante SSH Tunneling en Kubernetes
 
-> SSH Port forwarding (Tunelización de puertos)
+> SSH Port forwarding
 
 <!-- <img src="../../assets/memoryDumping.webp" align="center" width="50%" height="50%"/> -->
 
