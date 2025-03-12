@@ -23,20 +23,20 @@
 
 ## Relevance
 
-
-    Helps detect SSH tunneling and port forwarding inside containers, which attackers can use to bypass network policies, establish covert channels, and gain unauthorized access. In a Kubernetes environment, enforcing this rule mitigates security risks by preventing lateral movement and data exfiltration within the cluster.
+    La regla detecta la creación de túneles SSH y redirección de puertos (port forwarding) dentro de contenedores, los cuales pueden ser utilizados por atacantes para evadir políticas de red, establecer canales encubiertos y obtener acceso no autorizado. En un entorno de Kubernetes, aplicar esta regla mitiga los riesgos de seguridad al prevenir movimientos laterales y la exfiltración de datos dentro del nodo.
 
 
 ## Trigger commands
 
-    ssh -i gcp_remote -L 3306:localhost:3306 diegoposada@34.27.180.215 OK
-    ssh -i gcp_remote -NL 3306:localhost:3306 diegoposada@34.27.180.215 OK
-    ssh -i gcp_remote -fNL 3306:localhost:3306 diegoposada@34.27.180.215 OK 
-    ssh -D 1080 -i gcp_remote diegoposada@34.27.180.21 (Proxy SOCKS5)  OK
-    ssh -w 0:0 -i gcp_remote diegoposada@34.27.180.21 (VPN basado en SSH, Interfaz TUN/TAP) OK
 
-    ssh -i gcp_remote -R 3306:localhost:3306 diegoposada@34.27.180.215 OK
-    sshuttle -r diegoposada@34.27.180.215 0.0.0.0/0 --ssh-cmd "ssh -i /.ssh/gcp_remote" OK
+| Tipo                          | Descripción                                                                                                                     | Comando                                                                 |
+|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| **SSH Port Forwarding**        | Establece un túnel entre un puerto local y un puerto remoto en el servidor. Redirige tráfico entre ambos. <br> **Parámetros**: <br> `-f`: ejecuta el túnel en segundo plano. <br> `-N`: no ejecuta comandos remotos. <br> `-L`: redirige el puerto local. | `ssh -i gcp_remote -fNL 3306:localhost:3306 usuario@34.27.180.215`   |
+| **SSH Reverse Port Forwarding**| Establece un túnel en reverso, redirigiendo un puerto remoto hacia el puerto local de un servidor. <br> **Parámetros**: <br> `-f`: ejecuta el túnel en segundo plano. <br> `-N`: no ejecuta comandos remotos. <br> `-R`: redirige el puerto remoto. | `ssh -i gcp_remote -fRN 3306:localhost:3306 usuario@34.27.180.215`   |
+| **SSH Tunneling (Proxy SOCKS)**| Crea un proxy SOCKS en el servidor remoto para enrutar tráfico, proporcionando anonimato. <br> **Parámetros**: <br> `-D`: establece un proxy SOCKS en el puerto indicado. | `ssh -D 1080 -i gcp_remote usuario@34.27.180.21`                    |
+| **SSH VPN Tunnel**             | Establece una conexión VPN utilizando la interfaz TUN/TAP sobre SSH para enrutar tráfico de red completo. <br> **Parámetros**: <br> `-w`: configura un túnel VPN utilizando interfaces TUN/TAP. | `ssh -w 0:0 -i gcp_remote usuario@34.27.180.21`                     |
+| **sshuttle (VPN sobre SSH)**  | Proporciona una VPN completa sobre SSH, redirigiendo todo el tráfico de la red a través del servidor remoto. <br> **Parámetros**: <br> `-r`: establece la conexión remota. <br> `0.0.0.0/0`: redirige todo el tráfico de la red. <br> `--ssh-cmd`: comando SSH personalizado. | `sshuttle -r usuario@34.27.180.215 0.0.0.0/0 --ssh-cmd "ssh -i /.ssh/gcp_remote"` |
+
 
 
 ## Output

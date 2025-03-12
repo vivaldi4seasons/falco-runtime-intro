@@ -6,34 +6,41 @@
 ## SSH Port forwarding (Tunelización de puertos)
 
 
-El SSH Tunneling pertenece al marco MITRE ATT&CK dentro de la táctica TA0011 - Command and Control y a la técnica T1572 - Protocol Tunneling.
+MITRE ATT&CK
 
-**Detalles**
+- Tactic: Command and Control (TA0011)
 
-- Táctica: Command and Control (TA0011)
+- Technique: Protocol Tunneling (T1572)
 
-- Técnica: Protocol Tunneling (T1572)
 
-- Descripción: SSH Tunneling se utiliza para evadir detección y comunicación restringida al encapsular tráfico dentro de un canal cifrado de SSH, permitiendo a los atacantes acceder a recursos internos o exfiltrar datos sin ser detectados fácilmente.
+**Descripción:**
+
+SSH Tunneling permite encapsular tráfico dentro de un canal cifrado SSH para evadir la detección y comunicación restringida, permitiendo a los atacantes acceder a recursos internos o exfiltrar datos sin ser detectados fácilmente.
 
 **Subtécnicas relacionadas:**
 
 T1090.002 - Connection Proxy: SSH → Uso de SSH como proxy para ocultar la ubicación real del atacante.
+
 T1572 - Protocol Tunneling → SSH se usa para encapsular otros protocolos y evadir restricciones de red.
 
 
 
 | Tipo     | Opción | Flujo de tráfico                 | Uso principal                                              |
 |----------|--------|---------------------------------|-----------------------------------------------------------|
-| **Local**  | `-L`  | Local → SSH → Destino remoto   | Acceder a servicios remotos desde tu máquina             |
-| **Remoto** | `-R`  | Remoto → SSH → Tu máquina      | Hacer que servicios locales sean accesibles desde una máquina remota |
-| **Dinámico** | `-D`  | Proxy SOCKS5 (Cualquier destino) | Proxy seguro para navegación o túneles VPN-like          |
+| **Local**  | `-L`  | Local → SSH → Destino remoto   | Acceder a servicios remotos desde tu máquina.             |
+| **Remoto** | `-R`  | Remoto → SSH → Tu máquina      | Hacer que servicios locales sean accesibles desde una máquina remota. |
+| **Dinámico** | `-D`  | Proxy SOCKS5 (Cualquier destino) | Proxy seguro para navegación o túneles VPN-like.          |
 
 
-## Other tools
+## Tunneling Tools
 
 
-sshuttle es una herramienta que permite tunelizar tráfico de red a través de una conexión SSH, similar a un VPN pero sin necesidad de configurar un servidor VPN. Es útil para acceder a redes privadas de forma segura sin exponer servicios al exterior.
+Además de SSH, existen otras herramientas utilizadas para tunelizar tráfico de red y evadir controles de seguridad:
+
+sshuttle: Permite redirigir tráfico de red a través de una conexión SSH, similar a una VPN, sin requerir configuración compleja.
+chisel: Herramienta de tunelización TCP/UDP para crear túneles reversos y acceder a redes internas.
+iodine: Permite tunelizar tráfico IP sobre DNS, útil para evadir restricciones de red.
+Estas herramientas son comúnmente usadas para exfiltración de datos y establecer canales de comunicación no autorizados.
 
 
 ### Summary
