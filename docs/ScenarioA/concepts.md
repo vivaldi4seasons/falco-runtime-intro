@@ -3,7 +3,7 @@
 > La diferencia entre SSH Port Forwarding y SSH Tunneling es más una cuestión de terminología que de funcionalidad, ya que SSH Port Forwarding es un tipo específico de SSH Tunneling. Sin embargo, en la práctica, estos términos a veces se usan indistintamente.
 
 
-## SSH Port forwarding (Tunelización de puertos)
+## SSH Port forwarding
 
 
 MITRE ATT&CK
@@ -37,10 +37,13 @@ T1572 - Protocol Tunneling → SSH se usa para encapsular otros protocolos y eva
 
 Además de SSH, existen otras herramientas utilizadas para tunelizar tráfico de red y evadir controles de seguridad:
 
-sshuttle: Permite redirigir tráfico de red a través de una conexión SSH, similar a una VPN, sin requerir configuración compleja.
-chisel: Herramienta de tunelización TCP/UDP para crear túneles reversos y acceder a redes internas.
-iodine: Permite tunelizar tráfico IP sobre DNS, útil para evadir restricciones de red.
-Estas herramientas son comúnmente usadas para exfiltración de datos y establecer canales de comunicación no autorizados.
+- sshuttle: Permite redirigir tráfico de red a través de una conexión SSH, similar a una VPN, sin requerir configuración compleja.
+
+- chisel: Herramienta de tunelización TCP/UDP para crear túneles reversos y acceder a redes internas.
+
+-iodine: Permite tunelizar tráfico IP sobre DNS, útil para evadir restricciones de red.
+
+Estas herramientas son comúnmente usadas para facilitar la exfiltración de datos y establecer canales de comunicación no autorizados.
 
 
 ### Summary
@@ -50,6 +53,6 @@ Estas herramientas son comúnmente usadas para exfiltración de datos y establec
 
 - SSH Tunneling 🔄 → Encapsula tráfico TCP de manera más amplia (tipo VPN).  (usar tu servidor como proxy para todo el tráfico, usa SSH Tunneling con -D)
 
-- No se requiere kubectl para esta demostración. nginx ya se está ejecutando en el pod y se puede acceder a el directamente desde lá maquina local. Los tuneles SSH operan a nivel de red TCP, por lo que no requieren conocimientos en Kubernetes.
+- No se requiere kubectl para esta demostración. El servicio nginx se está ejecutando en el pod y se puede acceder a el directamente desde lá máquina local. Los túneles SSH operan a nivel de red TCP, por lo que no requieren conocimientos en Kubernetes.
 
-ssh -i gcp_remote -R 8080:127.0.0.1:80 diegoposada@34.27.180.215
+
