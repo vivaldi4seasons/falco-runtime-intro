@@ -32,7 +32,7 @@ T1572 - Protocol Tunneling → SSH se usa para encapsular otros protocolos y eva
 | **Dinámico** | `-D`  | Proxy SOCKS5 (Cualquier destino) | Proxy seguro para navegación o túneles VPN-like.          |
 
 
-## Tunneling Tools
+### Tunneling Tools
 
 
 Además de SSH, existen otras herramientas utilizadas para tunelizar tráfico de red y evadir controles de seguridad:
@@ -41,9 +41,20 @@ Además de SSH, existen otras herramientas utilizadas para tunelizar tráfico de
 
 - chisel: Herramienta de tunelización TCP/UDP para crear túneles reversos y acceder a redes internas.
 
--iodine: Permite tunelizar tráfico IP sobre DNS, útil para evadir restricciones de red.
+- iodine: Permite tunelizar tráfico IP sobre DNS, útil para evadir restricciones de red.
 
 Estas herramientas son comúnmente usadas para facilitar la exfiltración de datos y establecer canales de comunicación no autorizados.
+
+
+### Why can this be a security risk?
+
+🔸Exposición del puerto local: El port forwarding (-L o -R) puede exponer puertos locales o remotos a accesos no autorizados. Si un puerto se reenvía de forma inapropiada, personas no autorizadas podrían acceder a servicios internos a través de un puerto que, de otra manera, estaría cerrado.
+
+🔸 Túneles sin cifrar o inseguridad en el canal SSH: Aunque el canal SSH está cifrado, si las credenciales de acceso (como las claves SSH) no están bien protegidas o si la máquina local es comprometida, un atacante podría utilizar ese túnel para realizar actividades maliciosas o interceptar comunicaciones.
+
+🔸 Uso de un proxy SOCKS o VPN: El comando ssh -D establece un proxy SOCKS y el comando ssh -w establece un túnel VPN, lo cual podría permitir que el tráfico se enrute a través de servidores no confiables. Si no se asegura que el servidor SSH sea confiable y seguro, un atacante podría tener acceso a toda la comunicación a través de esos túneles y potencialmente robar información sensible.
+
+🔸 Acceso a redes privadas o recursos internos: Al hacer tunneling de puertos o utilizar VPN, puedes acceder a redes internas o recursos privados. Si no se configuran correctamente las reglas de firewall o se hacen cambios inadvertidos, estos túneles podrían exponer redes sensibles a posibles atacantes.
 
 
 ### Summary
