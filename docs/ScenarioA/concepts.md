@@ -49,3 +49,7 @@ Estas herramientas son comúnmente usadas para exfiltración de datos y establec
 - SSH Port Forwarding 🔒 → Redirige puertos específicos.
 
 - SSH Tunneling 🔄 → Encapsula tráfico TCP de manera más amplia (tipo VPN).  (usar tu servidor como proxy para todo el tráfico, usa SSH Tunneling con -D)
+
+- No se requiere kubectl para esta demostración. nginx ya se está ejecutando en el pod y se puede acceder a el directamente desde lá maquina local. Los tuneles SSH operan a nivel de red TCP, por lo que no requieren conocimientos en Kubernetes.
+
+ssh -i gcp_remote -R 8080:127.0.0.1:80 diegoposada@34.27.180.215

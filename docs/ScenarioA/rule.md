@@ -21,11 +21,6 @@
     tags: [host, container, network, mitre_command_and_control, T1572]
 
 
-## Relevance
-
-    La regla detecta la creación de túneles SSH y redirección de puertos (port forwarding) dentro de contenedores, los cuales pueden ser utilizados por atacantes para evadir políticas de red, establecer canales encubiertos y obtener acceso no autorizado. En un entorno de Kubernetes, aplicar esta regla mitiga los riesgos de seguridad al prevenir movimientos laterales y la exfiltración de datos dentro del nodo.
-
-
 ## Trigger commands
 
 
